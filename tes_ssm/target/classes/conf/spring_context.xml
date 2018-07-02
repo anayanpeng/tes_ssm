@@ -26,7 +26,7 @@
    <!-- 扫描 -->
    <context:component-scan base-package="com.tarena.impl"></context:component-scan>
    <!-- 扫描@Componebt @Value -->
-   <context:component-scan base-package="com.terena.util"></context:component-scan>
+   <context:component-scan base-package="com.tarena.util"></context:component-scan>
     
     
     

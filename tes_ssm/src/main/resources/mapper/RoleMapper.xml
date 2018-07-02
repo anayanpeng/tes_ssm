@@ -2,5 +2,28 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.tarena.dao.RoleMapper">
-	
+	<!-- 分页 -->
+	<select id="getCount" parameterType="Page" resultType="java.lang.Integer">
+		select count(role_id) geshu
+		from t_role
+		where
+		role_name like #{roleKeyword}
+	</select>
+	<select id="getRolesByPage" parameterType="Page" resultType="Role">
+		select
+		role_id id,role_name name
+		from
+		t_role
+		where
+		role_name like #{roleKeyword}
+		limit #{begin},#{pageSize}
+	</select>
+	<!--添加角色  -->
+	<insert id="addRole"
+	parameterType="Role">
+	insert into t_role
+	(role_id,role_name)
+	values
+	(#{id},#{name})
+	</insert>
 </mapper>

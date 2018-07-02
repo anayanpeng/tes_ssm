@@ -13,8 +13,27 @@ $(function(){
 	draw_user();
 	// 画视频统计环行图
 	draw_video();
+	//获取内存中的header.html
+	$("#logout_a").click(function(){
+		alert("logout")
+	})
 });
-
+function logout(){
+	$.ajax({
+		url:bashPath+"main/logout",
+		type:"post",
+		success:function(result){
+			if(result.status==1){
+				window.location.href="login.html"
+			}
+		},
+		error:function(){
+			alert("错误");
+		}
+		
+	})
+	
+}
 // 关闭面板
 function close_panel(btn) {
 	$(btn).parent().parent().parent().fadeOut(200);

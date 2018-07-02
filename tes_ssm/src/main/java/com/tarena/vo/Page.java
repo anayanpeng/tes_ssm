@@ -22,6 +22,14 @@ public class Page {
 	
 	private String roleType;//用户管理中的角色类型,讲师,学员,管理员
 
+	@Override
+	public String toString() {
+		return "Page [currentPage=" + currentPage + ", pageSize=" + pageSize + ", previousPage=" + previousPage
+				+ ", nextPage=" + nextPage + ", totalCount=" + totalCount + ", totalPage=" + totalPage + ", begin="
+				+ begin + ", aNum=" + aNum + ", roleKeyword=" + roleKeyword + ", userKeyword=" + userKeyword + ", data="
+				+ data + ", roleType=" + roleType + "]";
+	}
+
 	public int getCurrentPage() {
 		return currentPage;
 	}
