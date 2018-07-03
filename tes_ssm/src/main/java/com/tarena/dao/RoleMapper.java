@@ -18,5 +18,9 @@ public interface RoleMapper {
 	public List<Role> getRolesByPage(Page page);
 	//添加角色
 	public int addRole(Role role);
+	//更新角色
+	public void updateRole(Role role);
+	//删除角色
+	public void deleteRole(String roleId);
 
 }

@@ -57,7 +57,7 @@ public class RoleServiceipl implements RoleService {
 		result.setData(page);
 		return result;
 	}
-
+	//增加角色
 	@Override
 	public Result addRole(String roleName) {
 		Result result=new Result();
@@ -67,6 +67,24 @@ public class RoleServiceipl implements RoleService {
 		int rowAffect=this.RoleMapper.addRole(role);
 		result.setStatus(1);
 		result.setMessage("添加角色成功");
+		return result;
+	}
+	//更新角色
+	@Override
+	public Result updateRole(Role role) {
+		Result result=new Result();
+		this.RoleMapper.updateRole(role);
+		result.setStatus(1);
+		result.setMessage("更新成功");
+		return result;
+	}
+	//删除角色
+	@Override
+	public Result deleteRole(String roleId) {
+		Result result=new Result();
+		this.RoleMapper.deleteRole(roleId);
+		result.setStatus(1);
+		result.setMessage("删除成功");
 		return result;
 	}
 }

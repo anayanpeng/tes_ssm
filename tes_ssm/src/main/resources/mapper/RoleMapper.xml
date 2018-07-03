@@ -26,4 +26,19 @@
 	values
 	(#{id},#{name})
 	</insert>
+	<!-- 更新角色 -->
+	<update id="updateRole"
+	parameterType="Role">
+	update t_role
+	set
+	role_name=#{name}
+	where
+	role_id=#{id}
+	</update>
+	<!--删除角色-->
+	<delete id="deleteRole"
+	parameterType="java.lang.String">
+	delete from t_role
+	where role_id=#{id}
+	</delete>
 </mapper>
