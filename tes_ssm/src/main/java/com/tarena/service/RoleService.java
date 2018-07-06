@@ -17,5 +17,6 @@ public interface RoleService {
 	public Result updateRole(Role role);
 	//删除角色
 	public Result deleteRole(String roleId);
+	public Result findAllRoles();
 
 }

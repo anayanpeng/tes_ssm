@@ -87,4 +87,18 @@ public class RoleServiceipl implements RoleService {
 		result.setMessage("删除成功");
 		return result;
 	}
+	//添加所有角色信息
+	@Override
+	public Result findAllRoles() {
+		Result result=new Result();
+		List<Role> roles=this.RoleMapper.findAllRoles();
+		if(roles!=null){
+			result.setStatus(1);
+			result.setData(roles);
+		}else{
+			result.setStatus(0);
+			result.setMessage("没有");
+		}
+		return result;
+	}
 }

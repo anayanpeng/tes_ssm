@@ -1,18 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.tarena.dao.UserMapper">
-	<select id="login"
-	parameterType="User"
-	resultType="java.lang.String">
-	select  
-    	   user_id
-    	from t_user
-    	where 
-    	    user_loginname=#{loginName} and
-    	    user_password=#{password}  
-	</select>
-	<!-- role的ResultMap -->
+    <!-- role的ResultMap -->
 	<resultMap type="Role" id="roleMap">
 	    <!-- 注意:从表中的外键id,不能跟主表的主键id名字相同 -->
 		<id property="id" column="role_id" />
@@ -38,25 +29,32 @@
 		            javaType="java.util.List"
 		            resultMap="roleMap"></collection>
 	</resultMap>
+	<!-- 登录 -->
+	<select id="login" 
+	        parameterType="User"
+	        resultType="java.lang.String">
+    select  
+    	   user_id
+    	from t_user
+    	where 
+    	    user_loginname=#{loginName} and
+    	    user_password=#{password}     
+	</select>
 	<!-- 用户的分页+模糊(全部数据) -->
 	<select id="getCount"
 	        parameterType="Page"
 	        resultType="java.lang.Integer">
-	    select  count(user_id) geshu
-	    from
-	    ( select user_id from t_user 
-	      where user_loginname like #{userKeyword} or
-	            user_nickname like #{userKeyword})  u         
-	    
-	    left join t_user_role ur on ur.uid=u.user_id	 
-	    left join 
-	    (select role_id from t_role where role_name like #{roleType}) r
-	    on ur.rid=r.role_id
+		select
+		   count(user_id) as geshu
+		from t_user
+		where 
+		   user_loginname like #{userKeyword} or
+		   user_nickname like #{userKeyword}
 	</select>
-	<select id="findUsersByPage"
+	<select id="getUsers"
 	        parameterType="Page"
 	        resultMap="userMap">
-	       select
+		select
 			u.user_id,
 			u.user_loginname,
 			u.user_logintype,
@@ -72,16 +70,124 @@
 			u.user_sex,
 			r.role_id,
 			r.role_name
-	    from
-	        (select * from t_user 
-			 where user_loginname like #{userKeyword} or
-			       user_nickname like #{userKeyword}
-				limit #{begin},#{pageSize}       
-			)  u	     
+		from (
+				select * from t_user 
+				where 
+				  user_loginname like #{userKeyword} or
+				  user_nickname like #{userKeyword}
+				limit #{begin},#{pageSize}
+		     ) u
+	    left outer join t_user_role ur on u.user_id=ur.uid
+	    left outer join t_role r on ur.rid=r.role_id
+	    
+	</select>
+	<!-- 分页+模糊(指定角色名称) -->
+	<select id="getCountByRole"
+	        parameterType="Page"
+	        resultType="java.lang.Integer">
+		select 
+		    count(u.user_id)
+		from 
+		(
+		    select 
+		          * 
+		    from t_role
+		    where role_name like #{roleType}      
+		)  r
+		left outer join t_user_role ur on r.role_id=ur.rid
+		left outer join (
+		                    select 
+		                        * 
+		                    from t_user
+		                    where 
+		                      user_loginname like #{userKeyword} or
+		                      user_nickname like #{userKeyword}
+		                ) u on u.user_id=ur.uid
+	</select>
+	
+	<select id="getUsersByRole"
+	        parameterType="Page"
+	        resultMap="userMap">
+		select 
+		    u.user_id,
+			u.user_loginname,
+			u.user_logintype,
+			u.user_nickname,
+			u.user_password,
+			u.user_type,
+			u.user_head,
+			u.user_score,
+			u.user_islock,
+			u.user_pwdstate,
+			u.user_regdate,
+			u.user_age,
+			u.user_sex,
+			r.role_id,
+			r.role_name
 		    
-		left join t_user_role ur on ur.uid=u.user_id
-		left join
-			(select * from t_role where role_name like #{roleType}) r
-			on r.role_id=ur.rid
-	 </select>       
+		from 
+		(
+		    select 
+		          * 
+		    from t_role
+		    where role_name like #{roleType}      
+		)  r
+		left  join t_user_role ur on r.role_id=ur.rid
+		left outer join (
+		                    select 
+		                        * 
+		                    from t_user
+		                    where 
+		                      user_loginname like #{userKeyword} or
+		                      user_nickname like #{userKeyword}
+		                ) u on u.user_id=ur.uid
+		limit #{begin},#{pageSize}
+	
+	</select>
+	<!-- 添加用户信息 -->
+	<insert id="addUser"
+	        parameterType="User">
+		insert into t_user
+		(	
+		 	user_id,
+		 	user_loginname,
+		 	user_password,
+		 	user_nickname,
+		 	user_age,
+		 	user_sex,
+		 	user_head
+		)
+		values
+		(	
+		    #{id},
+		    #{loginName},
+		    #{password},
+		    #{nickName},
+		    #{age},
+		    #{sex},
+		    #{head}
+		)
+	</insert>	
+	<!-- 添加用户和角色信息 -->
+	<insert id="addUserRole"
+	        parameterType="UserRole">
+		insert into t_user_role
+		(
+			uid,
+			rid
+		)
+		values
+		(
+			#{userId},
+			#{roleId}
+		)
+	</insert>
+	
+	
+	
+	
+	
+	
+	  
+	        
 </mapper>

@@ -23,4 +23,6 @@ public interface RoleMapper {
 	//删除角色
 	public void deleteRole(String roleId);
 
+	public List<Role> findAllRoles();
+
 }

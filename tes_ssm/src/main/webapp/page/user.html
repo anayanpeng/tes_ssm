@@ -4,7 +4,7 @@
     <span class="glyphicon glyphicon-import" aria-hidden="true">导入</span>
   </button>
   <!-- 页签导航 -->
-  <ul class="nav nav-tabs " role="tablist">
+  <ul id="user_tab" class="nav nav-tabs " role="tablist">
     <li role="presentation" class="active">
       <a href="#userPanel" aria-controls="userPanel" role="tab" data-toggle="tab">列表</a>
     </li>
@@ -25,7 +25,7 @@
           <form class="form-inline">
             <div id="role_type" class="btn-group" role="group" aria-label="角色">
               <button type="button" class="btn btn-default">讲师</button>
-              <button type="button" class="btn btn-default active">学员</button>
+              <button type="button" class="btn btn-default">学员</button>
               <button type="button" class="btn btn-default">管理员</button>
               <button type="button" class="btn btn-default">全部</button>
             </div>
@@ -180,7 +180,7 @@
     <div role="tabpanel" class="tab-pane" id="addUserPanel">
       <div class="panel panel-default">
         <div class="panel-body">
-          <form class="form-horizontal" action="" method="post">
+          <form class="form-horizontal">
             <div class="form-group">
               <label class="col-md-2 control-label" for="inputEmail">用户名:</label>
               <div class="col-md-8">
@@ -219,7 +219,7 @@
             <div class="form-group">
               <label for="courseCategory" class="col-md-2 control-label">角色:</label>
               <div class="col-md-8">
-                <select id="courseCategory" class="form-control">
+                <select id="roleCategory" class="form-control">
                   <option></option>
                   <option>超级管理员</option>
                   <option>讲师</option>
@@ -244,9 +244,9 @@
             </div>
 
             <div class="form-group">
-              <label class="col-md-2 control-label" for="picture">头像:</label>
+              <label class="col-md-2 control-label" for="addHeadPicture">头像:</label>
               <div class="col-md-8">
-                <input type="file" id="picture">
+                <input type="file" id="addHeadPicture" name="addPicture">
               </div>
             </div>
 
@@ -356,11 +356,11 @@
             <div class="col-md-8">
               <div class="radio">
                 <label>
-                  <input name="user-type" type="radio" value="0">男
+                  <input name="user-type" type="radio" value="男" checked="checked">男
                 </label>
                 &nbsp;
                 <label>
-                  <input name="user-type" type="radio" value="1">女
+                  <input name="user-type" type="radio" value="女">女
                 </label>
               </div>
             </div>

@@ -41,4 +41,13 @@
 	delete from t_role
 	where role_id=#{id}
 	</delete>
+	<!--  -->
+	<select id="findAllRoles"
+	resultType="Role">
+	select 
+		role_id id,
+		role_name name
+		from
+		t_role
+	</select>
 </mapper>

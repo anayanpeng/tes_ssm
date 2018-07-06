@@ -1,14 +1,19 @@
 package com.tarena.controller;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.tarena.entity.Role;
+import com.tarena.entity.User;
 import com.tarena.service.RoleService;
 import com.tarena.vo.Page;
 import com.tarena.vo.Result;
@@ -49,6 +54,15 @@ public class RoleController {
 		Result result=null;
 		result=new Result();
 		result=this.roleService.deleteRole(roleId);
+		result.setStatus(1);
+		System.out.println(3333);
+		return result;
+	}
+	@RequestMapping(value="findAllRoles",method=RequestMethod.GET)
+	@ResponseBody
+	public Result findAllRoles(){
+		Result result=null;
+		result=this.roleService.findAllRoles();
 		result.setStatus(1);
 		System.out.println(3333);
 		return result;

@@ -14,9 +14,9 @@ public class Page {
 	
 	private List<Integer> aNum;
 	
-	private String roleKeyword;
+	private String roleKeyword;//角色关键字
 	
-	private String userKeyword;
+	private String userKeyword;//用户关键字
 	
 	private List data;
 	

@@ -61,7 +61,7 @@ public class UploadUtil {
 			img=resizeByWidth(img,width,isScale);
 			Graphics2D g=(Graphics2D)img.getGraphics();
 			g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-			g.setColor(new Color(0xffffff));
+			g.setColor(new Color(0xffff));
 			g.drawString("TES", 5, 35);
 			
 			String originalFileName=picture.getOriginalFilename();
