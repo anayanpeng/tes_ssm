@@ -1,5 +1,8 @@
 package com.tarena.controller;
 
+import java.io.IOException;
+import java.io.OutputStream;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -47,5 +50,26 @@ public class UserController {
 	public void addUser(User user,String roleId,MultipartFile addPicture, HttpServletRequest request,HttpServletResponse response){
 	System.out.println("addUser()-->"+addPicture);	
 	this.userService.addUser(user,roleId,addPicture,request,response);
+	}
+	@RequestMapping(value="exportExcel",method=RequestMethod.GET)
+	public void export_user(HttpServletRequest request,HttpServletResponse response){
+		byte[]data=this.userService.export_User();
+		if(data!=null){
+			//把字节数组下载到客户端
+			try {
+				response.setContentType("application/x-msdownload");
+				response.setHeader("Content-Disposition", "attachment;fileName=alluser.xls");
+				response.setContentLength(data.length);
+				OutputStream os;
+				os = response.getOutputStream();
+				os.write(data);
+				os.flush();
+				os.close();
+				
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 	}
 }

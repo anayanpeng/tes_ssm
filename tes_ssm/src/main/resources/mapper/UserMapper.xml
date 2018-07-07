@@ -40,6 +40,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     	    user_loginname=#{loginName} and
     	    user_password=#{password}     
 	</select>
+		<!-- 根据用户名查找用户信息(shiro的登录用) -->
+	<select id="findUserByUserName"
+	        parameterType="java.lang.String"
+	        resultMap="userMap">
+		select
+		    user_id,
+		    user_loginname,
+		    user_password
+		from t_user
+		where user_loginname=#{loginname}
+	</select>
 	<!-- 用户的分页+模糊(全部数据) -->
 	<select id="getCount"
 	        parameterType="Page"
@@ -183,7 +194,23 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		)
 	</insert>
 	
-	
+	<select id="findAllUsers"
+	resultMap="userMap">
+	select
+			u.user_loginname,
+			u.user_logintype,
+			u.user_nickname,
+			u.user_password,
+			u.user_type,
+			u.user_head,
+			u.user_score,
+			u.user_islock,
+			u.user_pwdstate,
+			u.user_regdate,
+			u.user_age,
+			u.user_sex
+	  from t_user u
+	</select>
 	
 	
 	

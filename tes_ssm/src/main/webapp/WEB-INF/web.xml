@@ -12,8 +12,9 @@
   <context-param>
     <param-name>contextConfigLocation</param-name>
     <param-value>
-		classpath:conf/spring_context.xml
-		classpath:conf/spring_mybatis.xml
+		classpath:conf/spring_context.xml;
+		classpath:conf/spring_mybatis.xml;
+		classpath:conf/spring_shiro.xml
 		</param-value>
   </context-param>
   <listener>
@@ -31,10 +32,20 @@
       <param-value>true</param-value>
     </init-param>
   </filter>
-  <filter-mapping>
-    <filter-name>encodingFilter</filter-name>
-    <url-pattern>/*</url-pattern>
-  </filter-mapping>
+	<!-- shiro的过滤器 注意此处的filtername跟spring配置文件中的bean id名称一致 -->
+	<filter>
+	  	<filter-name>shiroFilter</filter-name>
+	  	<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+	  		<init-param>
+	  			<!-- 将shiro的声明周期交给web容器管理 -->	  		
+		  		<param-name>targetFilterLifecycle</param-name>
+		  		<param-value>true</param-value>
+	  		</init-param>
+	</filter>
+	<filter-mapping>
+	  	<filter-name>shiroFilter</filter-name>
+	  	<url-pattern>/*</url-pattern>
+	</filter-mapping>
   <servlet>
     <servlet-name>dispatcher_restful</servlet-name>
     <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
@@ -48,4 +59,5 @@
     <servlet-name>dispatcher_restful</servlet-name>
     <url-pattern>/</url-pattern>
   </servlet-mapping>
+  
 </web-app>

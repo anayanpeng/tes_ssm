@@ -23,5 +23,8 @@ public interface UserMapper {
 	//分页(指定具体角色）
 	public int getCountByRole(Page page);
 	public List getUsersByRole(Page page);
-
+	//查询所有数据
+	public List<User> findAllUsers();
+	//根据用户名查找用户信息(shiro的登录用)
+	public User findUserByUserName(String username);
 }

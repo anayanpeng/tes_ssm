@@ -15,8 +15,8 @@ public class MainController {
 	@ResponseBody
  public Result logout(HttpSession session){
 	 Result result=null;
-	 session.invalidate();
-	 result.setStatus(1);
+		session.invalidate();//清楚session中所有的数据
+		result.setStatus(1);
 	return result;
  }
 }

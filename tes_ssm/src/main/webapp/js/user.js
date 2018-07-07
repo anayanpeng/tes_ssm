@@ -22,6 +22,11 @@ $(function(){
 	$("#addUserPanel form").submit(function(){
 		return addUser();
 	})
+	//给导出
+	$("#export_user").click(function(){
+		alert("145ds555");
+		window.location.href=basePath+"user/exportExcel";
+	})
 //添加用户
  function addUser(){
 		var loginName=$("#addUserPanel form #inputEmail").val();
